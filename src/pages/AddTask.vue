@@ -3,32 +3,40 @@
     <Header />
     <h1>Добавить задачу</h1>
 
-    <div class="task__list">тут будет список задач</div>
+    <table class="task__list">
+      <thead>
+        <th>Номер задачи</th>
+        <th>Исполнитель</th>
+        <th>Дата создания</th>
+        <th>Дата готовности</th>
+        <th>Комментарий к задаче</th>
+      </thead>
+      <tbody v-for="task in allTasks" :key="task.id">
+        <tr>
+          <td>{{ task.id }}</td>
+          <td>{{ task.perfomer }}</td>
+          <td>{{ task.create_date }}</td>
+          <td>{{ task.date_ready }}</td>
+          <td>{{ task.comment }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
 import { Options, Vue } from "vue-class-component";
+import { mapGetters, mapActions } from "vuex";
 import Header from "@/components/Header.vue";
-import { taskStore } from "../store";
 @Options({
   components: {
     Header,
   },
 
-  methods: {
-     async getTaskList() {
-      await fetch("http://localhost:3001/tasks")
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch((err) => {
-          console.log(err);
-        })
-    },
-  },
-
-  mounted() {
-    this.getTaskList();
+  computed: mapGetters(["allTasks"]),
+  methods: mapActions(["getAllTasks"]),
+  async mounted() {
+    this.getAllTasks();
   },
 })
 export default class Home extends Vue {}
@@ -45,5 +53,19 @@ export default class Home extends Vue {}
 }
 h1 {
   color: #fff;
+}
+
+.task__list {
+  color: #fff;
+  width: 100%;
+}
+thead {
+  width: 100%;
+}
+table{
+  text-align: center;
+}
+td{
+  max-width: 20%;
 }
 </style>
