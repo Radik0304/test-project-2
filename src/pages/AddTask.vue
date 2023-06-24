@@ -7,27 +7,29 @@
       <thead>
         <th>Номер задачи</th>
         <th>Исполнитель</th>
-        <th>Дата создания</th>
         <th>Дата готовности</th>
         <th>Комментарий к задаче</th>
         <th>Действие</th>
       </thead>
       <tbody v-for="task in allTasks" :key="task.id">
         <tr>
-          <td>{{ task.id }}</td>
+          <td class="task_id">{{ task.id }}</td>
           <td>{{ task.perfomer }}</td>
-          <td>{{ task.create_date }}</td>
           <td>{{ task.date_ready }}</td>
           <td class="comment">{{ task.comment }}</td>
-          <td><button @click="openModalDelete">Удалить задачу</button></td>
+          <td class="actions">
+            <button @click="openModalUpdate(task.id)">Редактировать задачу</button>
+            <button @click="openModalDelete(task.id)">Удалить задачу</button>
+          
+          </td>
         </tr>
       </tbody>
     </table>
     <div class="add-task__button">
       <button @click="openModalAdd">Добавить задачу</button>
     </div>
+    <ModalDeleteTask :idTask="idTask" v-if="isOpenModalDelete || isOpenModalUpdate" />
     <ModalAddTask v-if="isOpenModalAdd"/>
-    <ModalDeleteTask v-if="isOpenModalDelete" />
   </div>
 </template>
 
@@ -44,11 +46,11 @@ import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
     ModalDeleteTask
   },
 
-  computed: mapGetters(["allTasks", "isOpenModalAdd", "isOpenModalDelete"]),
+  computed: mapGetters(["allTasks", "idTask", "isOpenModalAdd", "isOpenModalDelete", "isOpenModalUpdate"]),
 
   methods: {
     ...mapActions(["getAllTasks"]),
-    ...mapMutations(["openModalAdd", "openModalDelete"]),
+    ...mapMutations(["openModalAdd", "openModalDelete", "openModalUpdate"]),
   },
 
   async mounted() {
@@ -94,5 +96,15 @@ td{
 .add-task__button{
   margin-top: 20px;
   margin-right: 0;
+}
+thead{
+  border: 1px solid #fff;
+}
+.task_id{
+  width: 7%
+}
+.actions{
+ display: flex;
+ justify-content: space-around;
 }
 </style>

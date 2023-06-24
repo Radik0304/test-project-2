@@ -1,37 +1,10 @@
 {
   "tasks": [
     {
-      "perfomer": "Райан Гослинг",
-      "create_date": "02.02.22",
-      "date_ready": "03.03.22",
-      "comment": "нужно прям быстро",
+      "comment": "надо",
+      "date_ready": "222222",
+      "perfomer": "сергей михалыч",
       "id": 1
-    },
-    {
-      "perfomer": "Джейсон Стетхем",
-      "create_date": "05.06.20",
-      "date_ready": "05.03.22",
-      "comment": "нужно ооочень быстро сделать",
-      "id": 2
-    },
-    {
-      "perfomer": "Джои Джордисон",
-      "create_date": "05.07.18",
-      "date_ready": "03.03.22",
-      "comment": "нужно ооочень быстро сделатьd",
-      "id": 3
-    },
-    {
-      "new_comment": "быстреее",
-      "new_date_ready": "29.09.2023",
-      "new_perfomer": "Сергей петров",
-      "id": 4
-    },
-    {
-      "new_comment": "sdfsdfs",
-      "new_date_ready": "dsfsdf",
-      "new_perfomer": "123",
-      "id": 5
     }
   ]
 }

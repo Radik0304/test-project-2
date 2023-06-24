@@ -31,7 +31,7 @@
         />
       </div>
       <footer>
-        <button @click="createNewTask">Создать задачу</button>
+        <button v-if="isOpenModalAdd" @click="createNewTask">Создать задачу</button>
       </footer>
     </div>
   </div>
@@ -41,18 +41,16 @@
 import { Options, Vue } from "vue-class-component";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 @Options({
+  // создаем переменные для отправки запроса
   data() {
     return {
-      /** Данные для создания новой заявки */
-      //   dataForNewTask: {
       new_comment: "",
       new_date_ready: "",
       new_perfomer: "",
-      //   }
     };
   },
 
-  computed: mapGetters(["isCloseModalAdd"]),
+  computed: mapGetters(["isCloseModalAdd", "isOpenModalAdd"]),
   methods: {
     ...mapMutations(["closeModalAdd"]),
      ...mapActions(["getAllTasks"]),
@@ -60,9 +58,9 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
     /** Cоздаем новую задачу */
     async createNewTask() {
       const data = {
-        new_comment: this.new_comment,
-        new_date_ready: this.new_date_ready,
-        new_perfomer: this.new_perfomer,
+        comment: this.new_comment,
+        date_ready: this.new_date_ready,
+        perfomer: this.new_perfomer,
       };
       const res = await fetch("http://localhost:3001/tasks", {
         method: "POST",
@@ -79,20 +77,7 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
         console.log("Ошибка получения данных с сервера");
         throw Error;
       }
-    },
-    // /** Получаем имя из поля ввода */
-    // getNewPerfomer(){
-
-    // },
-
-    // /** Получаем дату готовности из поля ввода */
-    // getNewDateReady(){
-
-    // },
-    // /** Получаем коммент из поля ввода */
-    // getNewComment(){
-
-    // }
+    }
   },
 })
 export default class ModalAddTask extends Vue {}
