@@ -40,8 +40,6 @@ export default taskStore({
     closeModalDelete(state){
       state.is_open_modal_delete = false;
     }
-
-    
   },
 
   actions: {
@@ -55,7 +53,7 @@ export default taskStore({
         console.log('Ошибка получения данных с сервера')
         throw Error
       }
-    }
+    },
   },
 
 })

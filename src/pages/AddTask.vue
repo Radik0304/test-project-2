@@ -19,7 +19,7 @@
           <td>{{ task.create_date }}</td>
           <td>{{ task.date_ready }}</td>
           <td class="comment">{{ task.comment }}</td>
-          <td><button type="submit">Удалить задачу</button></td>
+          <td><button @click="openModalDelete">Удалить задачу</button></td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +48,7 @@ import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
 
   methods: {
     ...mapActions(["getAllTasks"]),
-    ...mapMutations(["openModalAdd", "closeModalAdd", "openModalDelete", "closeModalDelete"])
+    ...mapMutations(["openModalAdd", "openModalDelete"]),
   },
 
   async mounted() {
@@ -82,6 +82,7 @@ table{
   text-align: center;
   border: 1px solid #fff;
   border-collapse: collapse;
+  position: relative;
 }
 td{
   border: 1px solid #fff;
@@ -91,8 +92,7 @@ td{
 }
 
 .add-task__button{
-  position: absolute;
-  top: 30vh;
-  right: 0;
+  margin-top: 20px;
+  margin-right: 0;
 }
 </style>
