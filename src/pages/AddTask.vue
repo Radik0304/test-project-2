@@ -10,6 +10,7 @@
         <th>Дата создания</th>
         <th>Дата готовности</th>
         <th>Комментарий к задаче</th>
+        <th>Действие</th>
       </thead>
       <tbody v-for="task in allTasks" :key="task.id">
         <tr>
@@ -17,24 +18,39 @@
           <td>{{ task.perfomer }}</td>
           <td>{{ task.create_date }}</td>
           <td>{{ task.date_ready }}</td>
-          <td>{{ task.comment }}</td>
+          <td class="comment">{{ task.comment }}</td>
+          <td><button type="submit">Удалить задачу</button></td>
         </tr>
       </tbody>
     </table>
+    <div class="add-task__button">
+      <button @click="openModalAdd">Добавить задачу</button>
+    </div>
+    <ModalAddTask v-if="isOpenModalAdd"/>
+    <ModalDeleteTask v-if="isOpenModalDelete" />
   </div>
 </template>
 
 <script>
 import { Options, Vue } from "vue-class-component";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Header from "@/components/Header.vue";
+import ModalAddTask from "@/components/ModalAddTask.vue";
+import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
 @Options({
   components: {
     Header,
+    ModalAddTask,
+    ModalDeleteTask
   },
 
-  computed: mapGetters(["allTasks"]),
-  methods: mapActions(["getAllTasks"]),
+  computed: mapGetters(["allTasks", "isOpenModalAdd", "isOpenModalDelete"]),
+
+  methods: {
+    ...mapActions(["getAllTasks"]),
+    ...mapMutations(["openModalAdd", "closeModalAdd", "openModalDelete", "closeModalDelete"])
+  },
+
   async mounted() {
     this.getAllTasks();
   },
@@ -64,8 +80,19 @@ thead {
 }
 table{
   text-align: center;
+  border: 1px solid #fff;
+  border-collapse: collapse;
 }
 td{
-  max-width: 20%;
+  border: 1px solid #fff;
+}
+.comment{
+  max-width: 30%;
+}
+
+.add-task__button{
+  position: absolute;
+  top: 30vh;
+  right: 0;
 }
 </style>
