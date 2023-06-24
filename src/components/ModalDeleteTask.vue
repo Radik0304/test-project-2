@@ -14,7 +14,9 @@
           type="text"
           name="perfomer"
           id="perfomer"
-          v-model="this.new_perfomer"
+          :value="perfomer"
+          @input="updatePerfomer"
+
         />
 
         <p>Дата готовности</p>
@@ -22,7 +24,8 @@
           type="text"
           name="dateReady"
           id="dateReady"
-          v-model="this.new_date_ready"
+          :value="dateReady"
+          @input="updateDate"
         />
 
         <p>Комментарий</p>
@@ -30,7 +33,8 @@
           type="text"
           name="comment"
           id="comment"
-          v-model="this.new_comment"
+          :value="comment"
+          @input="updateComment"
         />
       </div>
       <footer v-if="isOpenModalDelete">
@@ -39,7 +43,7 @@
       </footer>
 
       <footer v-else>
-         <button  @click="updateTask">Применить изменения</button>
+         <button  @click="updateTask(idTask)">Применить изменения</button>
       </footer>
     </div>
   </div>
@@ -49,14 +53,47 @@
 import { Options, Vue } from "vue-class-component";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 @Options({
-  props: ['idTask'],
+  props: ['taskData'],
 
-  computed: mapGetters(["isCloseModalDelete", "isCloseModalUpdate", "isOpenModalDelete"]),
+  // создаем переменные для отправки запроса
+  data() {
+    return {
+      updated_comment: "",
+      updated_date_ready: "",
+      updated_perfomer: "",
+    };
+  },
+
+  // Забираем данные из VUEX
+  computed: mapGetters(
+    ["isCloseModalDelete",
+      "isCloseModalUpdate", 
+      "isOpenModalDelete",
+      "perfomer",
+      "dateReady",
+      "comment",
+      "idTask"
+    ]
+    ),
 
   methods: {
+    // Забираем мутации и экшены
     ...mapMutations(["closeModalDelete", "closeModalUpdate"]),
     ...mapActions(["getAllTasks"]),
 
+    //Обновляем содержимое инпутов
+    updateComment(e){
+      this.updated_comment = e.target.value;
+    },
+
+    updateDate(e){
+      this.updated_date_ready = e.target.value;
+    },
+
+    updatePerfomer(e){
+      this.updated_perfomer = e.target.value;
+    },
+    
     /** Удалить задачу */
     async deleteTask(id) {
       const res = await fetch(`http://localhost:3001/tasks/${id}`, {
@@ -68,7 +105,6 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
       if (res.ok) {
         this.closeModalDelete();
         this.getAllTasks();
-        alert("задача удалена!");
       } else {
         console.log("Ошибка получения данных с сервера");
         throw Error;
@@ -77,16 +113,21 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
 
     /** Отредактировать задачу */
     async updateTask(id) {
+      const updatedDataOfTask = {
+        comment: this.updated_comment,
+        date_ready: this.updated_date_ready,
+        perfomer: this.updated_perfomer,
+      }
       const res = await fetch(`http://localhost:3001/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(updatedDataOfTask),
       });
       if (res.ok) {
         this.closeModalDelete();
         this.getAllTasks();
-        alert("задача удалена!");
       } else {
         console.log("Ошибка получения данных с сервера");
         throw Error;

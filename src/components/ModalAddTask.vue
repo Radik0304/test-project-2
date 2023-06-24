@@ -72,7 +72,6 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
       if (res.ok) {
         this.closeModalAdd();
         this.getAllTasks();
-        alert("задача создана!");
       } else {
         console.log("Ошибка получения данных с сервера");
         throw Error;

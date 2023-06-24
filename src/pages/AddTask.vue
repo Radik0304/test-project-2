@@ -18,8 +18,8 @@
           <td>{{ task.date_ready }}</td>
           <td class="comment">{{ task.comment }}</td>
           <td class="actions">
-            <button @click="openModalUpdate(task.id)">Редактировать задачу</button>
-            <button @click="openModalDelete(task.id)">Удалить задачу</button>
+            <button @click="openModalUpdate(task)">Редактировать задачу</button>
+            <button @click="openModalDelete(task)">Удалить задачу</button>
           
           </td>
         </tr>
@@ -28,7 +28,10 @@
     <div class="add-task__button">
       <button @click="openModalAdd">Добавить задачу</button>
     </div>
-    <ModalDeleteTask :idTask="idTask" v-if="isOpenModalDelete || isOpenModalUpdate" />
+    <ModalDeleteTask 
+      :taskData="idTask"
+      v-if="isOpenModalDelete || isOpenModalUpdate" 
+      />
     <ModalAddTask v-if="isOpenModalAdd"/>
   </div>
 </template>
@@ -57,7 +60,7 @@ import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
     this.getAllTasks();
   },
 })
-export default class Home extends Vue {}
+export default class AddTask extends Vue {}
 </script>
 
 <style scoped>
