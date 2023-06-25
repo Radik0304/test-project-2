@@ -1,7 +1,10 @@
 <template>
   <div class="task__list-container">
     <Header />
-    <h1>Добавить задачу</h1>
+    <header>
+      <button type="submit" class="button__back" @click="goOnMainPage">Вернуться на главную</button>
+      <h1>Добавить задачу</h1>
+    </header>
 
     <table class="task__list">
       <thead>
@@ -20,7 +23,6 @@
           <td class="actions">
             <button @click="openModalUpdate(task)">Редактировать задачу</button>
             <button @click="openModalDelete(task)">Удалить задачу</button>
-          
           </td>
         </tr>
       </tbody>
@@ -28,11 +30,11 @@
     <div class="add-task__button">
       <button @click="openModalAdd">Добавить задачу</button>
     </div>
-    <ModalDeleteTask 
+    <ModalDeleteTask
       :taskData="idTask"
-      v-if="isOpenModalDelete || isOpenModalUpdate" 
-      />
-    <ModalAddTask v-if="isOpenModalAdd"/>
+      v-if="isOpenModalDelete || isOpenModalUpdate"
+    />
+    <ModalAddTask v-if="isOpenModalAdd" />
   </div>
 </template>
 
@@ -46,14 +48,26 @@ import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
   components: {
     Header,
     ModalAddTask,
-    ModalDeleteTask
+    ModalDeleteTask,
   },
 
-  computed: mapGetters(["allTasks", "idTask", "isOpenModalAdd", "isOpenModalDelete", "isOpenModalUpdate"]),
+  computed: mapGetters([
+    "allTasks",
+    "idTask",
+    "isOpenModalAdd",
+    "isOpenModalDelete",
+    "isOpenModalUpdate",
+  ]),
 
   methods: {
     ...mapActions(["getAllTasks"]),
     ...mapMutations(["openModalAdd", "openModalDelete", "openModalUpdate"]),
+
+    /** Вернуться на главную */
+    goOnMainPage() {
+      console.log('fucks')
+      this.$router.replace();
+    },
   },
 
   async mounted() {
@@ -83,31 +97,42 @@ h1 {
 thead {
   width: 100%;
 }
-table{
+table {
   text-align: center;
   border: 1px solid #fff;
   border-collapse: collapse;
   position: relative;
 }
-td{
+td {
   border: 1px solid #fff;
 }
-.comment{
+.comment {
   max-width: 30%;
 }
 
-.add-task__button{
+.add-task__button {
   margin-top: 20px;
   margin-right: 0;
 }
-thead{
+thead {
   border: 1px solid #fff;
 }
-.task_id{
-  width: 7%
+.task_id {
+  width: 7%;
 }
-.actions{
- display: flex;
- justify-content: space-around;
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.button__back {
+  position: absolute;
+  left: 10px;
 }
 </style>

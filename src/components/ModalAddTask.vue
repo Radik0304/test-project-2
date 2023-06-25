@@ -5,7 +5,7 @@
         <h1>Добавление задачи</h1>
         <button class="close" @click="closeModalAdd"></button>
       </header>
-      <div class="form">
+      <form class="form">
         <p>Исполнитель</p>
         <input
           type="text"
@@ -16,7 +16,7 @@
 
         <p>Дата готовности</p>
         <input
-          type="text"
+          type="date"
           name="dateReady"
           id="dateReady"
           v-model="this.new_date_ready"
@@ -24,14 +24,15 @@
 
         <p>Комментарий</p>
         <input
+          class="input__comment"
           type="text"
           name="comment"
           id="comment"
           v-model="this.new_comment"
         />
-      </div>
+      </form>
       <footer>
-        <button v-if="isOpenModalAdd" @click="createNewTask">Создать задачу</button>
+        <button type="submit" @click="createNewTask">Создать задачу</button>
       </footer>
     </div>
   </div>
@@ -88,7 +89,7 @@ export default class ModalAddTask extends Vue {}
   color: #fff;
   border: 1px solid #fff;
   width: 50%;
-  height: 50vh;
+  height: 53vh;
   text-align: center;
   margin: 30vh auto;
   background: #000;
@@ -118,5 +119,11 @@ h1 {
 }
 footer {
   margin-top: 5%;
+}
+input{
+  width: 33%;
+}
+.dp__input{
+  width: 33%;
 }
 </style>

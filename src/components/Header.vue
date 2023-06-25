@@ -1,8 +1,8 @@
 <template>
   <div class="header__container">
-    <a href="#">Мой вк</a>
-    <a href="#">Мое резюме</a>
-    <a href="#">Мое хобби</a>
+    <a href="https://vk.com/schecter28" target="_blank">Мой вк</a>
+    <a href="https://samara.hh.ru/resume/151006ccff09d21a7d0039ed1f677364583453" target="_blank">Мое резюме</a>
+    <a href="https://vk.com/martaprell" target="_blank">Мое хобби</a>
   </div>
 </template>
 
@@ -10,13 +10,8 @@
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
-  props: {
-    msg: String
-  }
 })
-export default class Header extends Vue {
-  msg!: string
-}
+export default class Header extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

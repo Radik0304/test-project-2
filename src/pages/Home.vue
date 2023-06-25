@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    <div>
+    <div class="container">
       <button class="button__add-task" @click="goToTaskPage">Добавить задачу</button>
     </div>
   </div>
@@ -31,6 +31,7 @@ export default class Home extends Vue {}
 
 <style scoped>
 .home{
+  position: relative;
   background-color: #000;
   width: 100%;
   height: 100%;
@@ -39,5 +40,11 @@ export default class Home extends Vue {}
   width: 50%;
   height: 20vh;
 
+}
+.container{
+  position: absolute;
+  top: 20vh;
+  left: 36%;
+  width: 50%;
 }
 </style>

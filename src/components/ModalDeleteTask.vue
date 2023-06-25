@@ -21,7 +21,7 @@
 
         <p>Дата готовности</p>
         <input
-          type="text"
+          type="date"
           name="dateReady"
           id="dateReady"
           :value="dateReady"
@@ -61,6 +61,11 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
       updated_comment: "",
       updated_date_ready: "",
       updated_perfomer: "",
+
+      // флаги изменения информации в инпутах
+      is_update_comment: false,
+      is_update_date: false,
+      is_update_perfomer: false
     };
   },
 
@@ -83,14 +88,18 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
 
     //Обновляем содержимое инпутов
     updateComment(e){
+      this.is_update_comment = true;
       this.updated_comment = e.target.value;
     },
 
     updateDate(e){
+      this.is_update_date = true;
+      console.log('ddddd')
       this.updated_date_ready = e.target.value;
     },
 
     updatePerfomer(e){
+      this.is_update_perfomer = true;
       this.updated_perfomer = e.target.value;
     },
     
@@ -113,11 +122,12 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
 
     /** Отредактировать задачу */
     async updateTask(id) {
-      const updatedDataOfTask = {
-        comment: this.updated_comment,
-        date_ready: this.updated_date_ready,
-        perfomer: this.updated_perfomer,
+      let updatedDataOfTask = {
+        comment: this.is_update_comment? this.updated_comment : this.comment,
+        date_ready: this.is_update_date? this.updated_date_ready : this.dateReady,
+        perfomer: this.is_update_perfomer? this.updated_perfomer : this.perfomer,
       }
+
       const res = await fetch(`http://localhost:3001/tasks/${id}`, {
         method: "PUT",
         headers: {
@@ -126,7 +136,7 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
         body: JSON.stringify(updatedDataOfTask),
       });
       if (res.ok) {
-        this.closeModalDelete();
+        this.closeModalUpdate();
         this.getAllTasks();
       } else {
         console.log("Ошибка получения данных с сервера");
