@@ -16,4 +16,7 @@ body, html{
 body{
   margin: 0;
 }
+button:hover {
+  cursor: pointer;
+}
 </style>

@@ -2,7 +2,9 @@
   <div class="task__list-container">
     <Header />
     <header>
-      <button type="submit" class="button__back" @click="goOnMainPage">Вернуться на главную</button>
+      <button type="submit" class="button__back" @click="goOnMainPage">
+        <a href="/">Вернуться на главную</a>
+      </button>
       <h1>Добавить задачу</h1>
     </header>
 
@@ -134,5 +136,9 @@ header {
 .button__back {
   position: absolute;
   left: 10px;
+}
+a{
+  color: #000;
+  text-decoration: none;
 }
 </style>

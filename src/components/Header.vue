@@ -24,5 +24,6 @@ export default class Header extends Vue {}
 }
 a{
   color: #fff;
+  text-decoration: none;
 }
 </style>

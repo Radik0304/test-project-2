@@ -21,7 +21,7 @@ import Header from '@/components/Header.vue';
   methods: {
     // Перейти на страницу с задачами
     goToTaskPage(){
-      this.$router.push('add-task')
+      this.$router.push('/add-task')
     }
 
   }
