@@ -67,7 +67,6 @@ import ModalDeleteTask from "@/components/ModalDeleteTask.vue";
 
     /** Вернуться на главную */
     goOnMainPage() {
-      console.log('fucks')
       this.$router.replace();
     },
   },
