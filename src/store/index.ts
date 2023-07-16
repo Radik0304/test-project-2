@@ -86,7 +86,6 @@ export default taskStore({
       const tasks = await res.json()
       if(res.ok){
         context.commit('updateTasks', tasks)
-        // console.log(tasks)
       } else {
         console.log('Ошибка получения данных с сервера')
         throw Error
